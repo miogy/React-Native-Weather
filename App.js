@@ -12,6 +12,18 @@ export default function App() {
           <Text style={styles.temp}>27</Text>
           <Text style={styles.description}>sunny day</Text>
         </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>sunny day</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>sunny day</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.description}>sunny day</Text>
+        </View>
       </ScrollView>
       <StatusBar style="auto" />
     </View>
@@ -24,16 +36,28 @@ const styles = StyleSheet.create({
     backgroundColor: "tomato",
   },
   city: {
-    flex: 1,
+    flex: 1.2,
     backgroundColor: "red",
+    justifyContent: "center",
+    alignContent: "center",
   },
   cityName: {
     fontSize: 58,
     justifyContent: "center",
     alignItems: "center",
   },
-  weather: {},
-  day: {},
-  temp: {},
-  description: {},
+  weather: {
+    // flex: 3,
+  },
+  day: {
+    // flex: 1,
+    alignItems: "center",
+  },
+  temp: {
+    marginTop: 50,
+    fontSize: 170,
+  },
+  description: {
+    fontSize: 28,
+  },
 });
