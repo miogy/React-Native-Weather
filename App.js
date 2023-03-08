@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions } from "react-native"; // api에서 확인한 dimensions불러오기
+
+// const { width } = Dimensions.get("window");
+// console.log(window); // 실제 연결한 모바일 사이즈 확인
+
+const { width: SCREEN_SIZE } = Dimensions.get("window");
+// get()적용 => : SCREEN_SIZE
+// const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default function App() {
   return (
@@ -51,6 +59,7 @@ const styles = StyleSheet.create({
   },
   day: {
     // flex: 1,
+    width: SCREEN_SIZE, // 모든 day에 스크린 사이즈 적용
     alignItems: "center",
   },
   temp: {
