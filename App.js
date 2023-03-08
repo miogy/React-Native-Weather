@@ -1,4 +1,6 @@
+import * as Location from "expo-location";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Dimensions } from "react-native"; // api에서 확인한 dimensions불러오기
 
@@ -10,6 +12,23 @@ const { width: SCREEN_SIZE } = Dimensions.get("window");
 // const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [ok, setOk] = useState(true);
+
+  // 1. 위치검색 허가
+  const ask = async () => {
+    // const permission = await Location.requestForegroundPermissionsAsync();
+    // console.log(permission);
+    // 터미널에서 확인됨 {"canAskAgain": true, "expires": "never", "granted": true, "status": "granted"}
+    const { granted } = await Location.requestForegroundPermissionsAsync();
+    if (!granted) {
+      setOk(false);
+    } // !granted 허가 받지 않으면 setOk(falst);
+  };
+  useEffect(() => {
+    ask();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.city}>
