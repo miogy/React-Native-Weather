@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
   },
   cityName: {
     fontSize: 58,
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: "center",
   },
   weather: {
     // flex: 3,
