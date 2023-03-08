@@ -15,7 +15,12 @@ export default function App() {
       <View style={styles.city}>
         <Text style={styles.cityName}>Seoul</Text>
       </View>
-      <ScrollView horizontal contentContainerStyle={styles.weather}>
+      <ScrollView
+        pagingEnabled // 스크롤시 끝까지 넘겨야 페이지가 넘어가게 만들어줌
+        showsHorizontalScrollIndicator={false} //pagingEnabled적용시 생기는 indicator을 숨김
+        horizontal
+        contentContainerStyle={styles.weather}
+      >
         <View style={styles.day}>
           <Text style={styles.temp}>27</Text>
           <Text style={styles.description}>sunny day</Text>
@@ -45,7 +50,7 @@ const styles = StyleSheet.create({
   },
   city: {
     flex: 1.2,
-    backgroundColor: "red",
+    // backgroundColor: "red",
     justifyContent: "center",
     alignContent: "center",
   },
