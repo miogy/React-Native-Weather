@@ -12,11 +12,13 @@ const { width: SCREEN_SIZE } = Dimensions.get("window");
 // const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default function App() {
+  const [city, setCity] = useState("Loading...");
   const [location, setLocation] = useState(null);
   const [ok, setOk] = useState(true);
 
-  // 1. 위치검색 허가
   const ask = async () => {
+    // 1. 위치검색 허가 : console에서 requestForegroundPermissionsAsync확인후 사용
+
     // const permission = await Location.requestForegroundPermissionsAsync();
     // console.log(permission);
     // 터미널에서 확인됨 {"canAskAgain": true, "expires": "never", "granted": true, "status": "granted"}
@@ -24,7 +26,23 @@ export default function App() {
     if (!granted) {
       setOk(false);
     } // !granted 허가 받지 않으면 setOk(falst);
+
+    // 2. 위치 가져오기 : 콘솔에서 getCurrentPositionAsync확인후 사용
+    // const location = await Location.getCurrentPositionAsync({ accuracy: 5 });
+    // console.log(location);
+    const {
+      coords: { latitude, longitude },
+    } = await Location.getCurrentPositionAsync({
+      accuracy: 5,
+    });
+    const location = await Location.reverseGeocodeAsync(
+      { latitude, longitude },
+      { useGoogleMaps: false }
+    );
+    // console.log(location);
+    setCity(location[0].city);
   };
+
   useEffect(() => {
     ask();
   }, []);
@@ -32,7 +50,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.city}>
-        <Text style={styles.cityName}>Seoul</Text>
+        <Text style={styles.cityName}>{city}</Text>
       </View>
       <ScrollView
         pagingEnabled // 스크롤시 끝까지 넘겨야 페이지가 넘어가게 만들어줌
