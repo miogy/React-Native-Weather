@@ -1,7 +1,13 @@
 import * as Location from "expo-location";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { Dimensions } from "react-native"; // api에서 확인한 dimensions불러오기
 
 // const { width } = Dimensions.get("window");
@@ -11,9 +17,10 @@ const { width: SCREEN_SIZE } = Dimensions.get("window");
 // get()적용 => : SCREEN_SIZE
 // const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const API_KEY = "";
+const API_KEY = "751d9dc2c2be35424947e3bac2741c55";
 
 export default function App() {
+  const [days, setDays] = useState([]);
   const [city, setCity] = useState("Loading...");
   const [location, setLocation] = useState(null);
   const [ok, setOk] = useState(true);
@@ -43,9 +50,12 @@ export default function App() {
     );
     // console.log(location);
     setCity(location[0].city);
-    fetch(
-      `api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
     );
+    const json = await res.json();
+    // setDays(json.list);
+    // console.log(json.list);
   };
 
   useEffect(() => {
@@ -63,22 +73,20 @@ export default function App() {
         horizontal
         contentContainerStyle={styles.weather}
       >
-        <View style={styles.day}>
-          <Text style={styles.temp}>27</Text>
-          <Text style={styles.description}>sunny day</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.temp}>27</Text>
-          <Text style={styles.description}>sunny day</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.temp}>27</Text>
-          <Text style={styles.description}>sunny day</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.temp}>27</Text>
-          <Text style={styles.description}>sunny day</Text>
-        </View>
+        {days.length === 0 ? (
+          <View style={styles.day}>
+            <ActivityIndicator
+              color="white"
+              size="large"
+              style={{ marginTop: 10 }}
+            />
+          </View>
+        ) : (
+          <View style={styles.day}>
+            <Text style={styles.temp}>27</Text>
+            <Text style={styles.description}>sunny day</Text>
+          </View>
+        )}
       </ScrollView>
       <StatusBar style="auto" />
     </View>
