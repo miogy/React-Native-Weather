@@ -51,7 +51,7 @@ export default function App() {
     // console.log(location);
     setCity(location[0].city);
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
     );
     const json = await res.json();
     setDays(json.list);
@@ -84,7 +84,9 @@ export default function App() {
         ) : (
           days.map((day, i) => (
             <View key={i} style={styles.day}>
-              <Text style={styles.temp}>{day.main.temp}</Text>
+              <Text style={styles.temp}>
+                {parseFloat(day.main.temp).toFixed(1)}
+              </Text>
               <Text style={styles.description}>{day.weather[0].main}</Text>
             </View>
           ))
