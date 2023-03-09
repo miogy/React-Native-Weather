@@ -54,8 +54,8 @@ export default function App() {
       `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
     );
     const json = await res.json();
-    // setDays(json.list);
-    // console.log(json.list);
+    setDays(json.list);
+    console.log(json.list);
   };
 
   useEffect(() => {
@@ -82,10 +82,16 @@ export default function App() {
             />
           </View>
         ) : (
-          <View style={styles.day}>
-            <Text style={styles.temp}>27</Text>
-            <Text style={styles.description}>sunny day</Text>
-          </View>
+          days.map((day, i) => (
+            <View key={i} style={styles.day}>
+              <Text style={styles.temp}>{day.main.temp}</Text>
+              <Text style={styles.description}>{day.weather[0].main}</Text>
+            </View>
+          ))
+          // <View style={styles.day}>
+          //   <Text style={styles.temp}>27</Text>
+          //   <Text style={styles.description}>sunny day</Text>
+          // </View>
         )}
       </ScrollView>
       <StatusBar style="auto" />
