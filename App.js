@@ -11,6 +11,8 @@ const { width: SCREEN_SIZE } = Dimensions.get("window");
 // get()적용 => : SCREEN_SIZE
 // const SCREEN_WIDTH = Dimensions.get("window").width;
 
+const API_KEY = "";
+
 export default function App() {
   const [city, setCity] = useState("Loading...");
   const [location, setLocation] = useState(null);
@@ -41,6 +43,9 @@ export default function App() {
     );
     // console.log(location);
     setCity(location[0].city);
+    fetch(
+      `api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`
+    );
   };
 
   useEffect(() => {
