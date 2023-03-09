@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
     fontSize: 170,
   },
   description: {
-    fontSize: 28,
+    fontSize: 68,
   },
 });
